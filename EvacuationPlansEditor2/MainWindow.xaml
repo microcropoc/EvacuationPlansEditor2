@@ -1,0 +1,239 @@
+﻿<Window  x:Class="EvacuationPlansEditor2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:EvacuationPlansEditor2"
+        Title="EvacuationPlansEditor" Height="600" Width="1024" MinHeight="600" MinWidth="1024" Background="Gainsboro"  KeyDown="Window_KeyDown"  >
+    <!--RootGrid-->
+
+    <Window.Resources>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Khaki"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Padding" Value="2"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="FontWeight" Value="Bold"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--<Style TargetType="Grid">
+            <Setter Property="ShowGridLines" Value="True"></Setter>
+        </Style>-->
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <!--ForStatusBar-->
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--MenuGrid-->
+        <Grid Grid.Row="0" Name="gridMenu">
+            
+            <Menu Grid.Row="0" Name="rootMenu">
+                <MenuItem Header="Файл" Name="menuFile">
+                    <MenuItem Header="Новый" Name="menuNew" Click="menuNew_Click" ></MenuItem>
+                    <MenuItem Header="Открыть" Name="menuOpen" Click="menuOpen_Click"  ></MenuItem>
+                    <MenuItem Header="Сохранить" Name="menuSave" Click="menuSave_Click"></MenuItem>
+                    <MenuItem Header="Сохранить как" Name="menuSaveAs" Click="menuSaveAs_Click"></MenuItem>
+                    <Separator></Separator>
+                    <MenuItem Header="Импорт" Name="menuImport" Click="menuImport_Click"  ></MenuItem>
+                    <MenuItem Header="Экспорт" Name="menuExport" Click="menuExport_Click"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Выход" Name="menuExit" Click="menuExit_Click"></MenuItem>
+                <!--<MenuItem Header="Текущий проект" Name="menuCurrentProject">
+                    <MenuItem Header="Предпросмотр" Name="menuPreviewCurrentProject"></MenuItem>
+                    <MenuItem Header="Настройки проекта" Name="menuSettingCurrentProject"></MenuItem>
+                </MenuItem>-->
+                <!--<MenuItem Header="Вид" Name="menuView"></MenuItem>-->
+                <!--<MenuItem Header="Инструменты">
+                    <MenuItem Header="Привязки"></MenuItem>
+                </MenuItem>-->
+            </Menu>
+
+        </Grid>
+
+        <!--WorkAreaGrid-->
+        <Grid Grid.Row="1" Name="gridWorkArea">
+            <Grid.ColumnDefinitions>
+                <!--forTreeObjects-->
+                <ColumnDefinition></ColumnDefinition>
+                <!--forCanvas-->
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <!--forToolsPanel-->
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--TreeObjectsGrid-->
+            <Grid Grid.Column="0" Name="gridListAndTreeObjects"   Background="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Background="Beige">
+                    <TextBlock HorizontalAlignment="Center" >Объекты проекта</TextBlock>
+                </Grid>
+                <Border Grid.Row="1" BorderBrush="WhiteSmoke" BorderThickness="2">
+                <TabControl IsEnabled="True" >
+                    <TabItem Header="Список" >
+                        <ListView Name="listViewBuildObjects" Background="GhostWhite"  ItemsSource="{Binding}"  DisplayMemberPath="Name" SelectionChanged="listViewBuildObjects_SelectionChanged" MouseRightButtonDown="listViewBuildObjects_MouseRightButtonDown" ContextMenuOpening="listViewBuildObjects_ContextMenuOpening" >
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="listViewBuildObjectsContextMenu" >
+                                    <MenuItem Name="listViewContectMenu_HideOrShow" Header="Скрыть" Click="listViewContectMenu_HideOrShow_Click"></MenuItem>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                        </ListView>
+                    </TabItem>
+                    <TabItem Header="Дерево">
+                        <TreeView Name="treeViewBuildObjects" DisplayMemberPath="Name" ItemsSource="{Binding}">
+
+
+                        </TreeView>
+                    </TabItem>
+                </TabControl>
+                </Border>
+            </Grid>
+
+            <!--CanvasAndCanvasNavigationToolsGrid-->
+            <Grid Grid.Column="1" Name="gridCanvasAndCanvasNavigationTools">
+                
+                <Viewbox Grid.Column="1">
+                    <Border BorderBrush="Black" Padding="1" BorderThickness="1" Grid.Column="1">
+
+                    <local:MyCanvas Height="595" Width="842" ClipToBounds="True" x:Name="myCanvasWork"  Background="White"  PreviewMouseLeftButtonDown="myCanvasWork_PreviewMouseLeftButtonDown"></local:MyCanvas>
+
+
+                    </Border>
+
+                </Viewbox>
+                
+            </Grid>
+
+            <!--ToolsPanel-->
+            <Grid Grid.Column="2" Name="gridToolsPanel" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Background="Azure">
+                    <TextBlock HorizontalAlignment="Center" >Панель инструментов</TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <!--forTools-->
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <!--forSettingsSelectTool-->
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <!--gridTools-->
+                    <Grid Grid.Column="0" Name="gridTools">
+                        <StackPanel Background="BlanchedAlmond" >
+                            <!--decoration!!!-->
+                            <Button IsEnabled="False" Visibility="Hidden" FontSize="1">dec</Button>
+                            <!--decoration!!!-->
+                            <Button Margin="5" Tag="SelectObjects"  Name="btnSelectObject" Click="btnSelectObject_Click"  >
+                                <ContentControl>
+                                    <StaticResourceExtension  ResourceKey= "SelectObjectButtonIcon"/>
+                                </ContentControl>
+                            </Button>
+
+                            <Separator BorderBrush="Aqua"></Separator>
+
+                            <Button Margin="5" Name="btnLine" Tag="Line" Click="btnLine_Click" >
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="LineButtonIcon"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>
+
+                            <Button Margin="5" Name="btnPolyLine"  Tag="PolyLine" Click="btnPolyLine_Click"  >
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="PoliLineButtonIcon"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>
+
+                            <Button Margin="5" Name="btnCricle" Tag="Cricle" Click="btnCricle_Click" >
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="CricleButtonIcon"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>
+                            <Button Margin="5" Name="btnRectangle" Tag="Rectangle" Click="btnRectangle_Click" >
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="RectangleButtonIcon"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>
+
+                            <Button Margin="5" Name="btnPathEvacuacion" Tag="PathEvacuacion" Click="btnPathEvacuacion_Click" >
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="PathEvacuacionButtonIcon"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>
+                            <Separator  BorderBrush="Aqua"></Separator>
+
+
+                            <Button Margin="5" Name="btnExitMan" Tag="ExitMan" Click="btnExitMan_Click" >
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="ExitManIcon"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>
+
+                            <!--<Button Margin="5" Name="btnPointer" Tag="Door">
+                                <ContentControl>
+                                    <StaticResourceExtension ResourceKey="PointerEvacTool"></StaticResourceExtension>
+                                </ContentControl>
+                            </Button>-->
+
+                        </StackPanel>
+                    </Grid>
+
+                    <!--gridSettingSelectTool-->
+                    <Grid Grid.Column="1" Name="gridSettingSelectTool" Background="GhostWhite" >
+                        <!--<Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock TextAlignment="Center" Background="Coral">Cтена</TextBlock>
+                            <Grid Grid.Row="1">
+                                <StackPanel>
+                                    <GroupBox Header="Толщина стены">
+                                        <TextBox></TextBox>
+                                    </GroupBox>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>-->
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Grid>
+        <!--StatusBar-->
+        <StatusBar RenderOptions.BitmapScalingMode="NearestNeighbor" Grid.Row="2" Name="statBar" >
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Name="sbTxtBlock1"></TextBlock>
+            </StatusBarItem>
+            <Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Name="sbTxtBlock2" Text="/"></TextBlock>
+            </StatusBarItem>
+
+        </StatusBar>
+    </Grid>
+    </Window>

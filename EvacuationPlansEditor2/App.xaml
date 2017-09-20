@@ -1,0 +1,908 @@
+﻿<Application x:Class="EvacuationPlansEditor2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Image x:Key="WindowCanvasIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing >
+                        <GeometryDrawing Brush="Khaki">
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="Black" Thickness="1"/>
+                            </GeometryDrawing.Pen>
+                            <GeometryDrawing.Geometry>
+                                <GeometryGroup>
+                                    <PathGeometry>
+                                        <!--Холст-->
+                                        <PathFigure IsClosed="True">
+                                            <LineSegment Point="20,10"/>
+                                            <LineSegment Point="40,0"/>
+                                            <LineSegment Point="60,1"/>
+
+                                            <LineSegment Point="60,60"/>
+                                            <LineSegment Point="40,50"/>
+                                            <LineSegment Point="20,60"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </GeometryGroup>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="SelectObjectButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+
+                                            <!--Пунктирный прямоугольник-->
+                                            <GeometryDrawing>
+                                                <GeometryDrawing.Pen>
+                                                    <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="Black" Thickness="0.5"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="1,1">
+                                                            <LineSegment Point="5,1"/>
+                                                            <LineSegment Point="5,5"/>
+                                                            <LineSegment Point="1,5"/>
+                                                            <LineSegment Point="1,1"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <!--Стрелка-->
+                                            <GeometryDrawing Brush="Black">
+                                                <!--<GeometryDrawing.Pen>
+                                                <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="Indigo" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>-->
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry>
+                                                        <PathFigure>
+                                                            <LineSegment Point="1,4"/>
+                                                            <LineSegment Point="1,1"/>
+                                                            <LineSegment Point="4,1"/>
+                                                            <LineSegment Point="0,0"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="MoveObjectButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+
+                                            <!--Крестик-->
+                                            <GeometryDrawing>
+                                                <GeometryDrawing.Pen>
+                                                    <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="Black" Thickness="0.5"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="2,4">
+                                                            <LineSegment Point="4,4"/>
+                                                            <LineSegment Point="4,2"/>
+                                                            <LineSegment Point="6,2"/>
+                                                            <LineSegment Point="6,4"/>
+                                                            <LineSegment Point="8,4"/>
+                                                            <LineSegment Point="8,6"/>
+                                                            <LineSegment Point="6,6"/>
+                                                            <LineSegment Point="6,8"/>
+                                                            <LineSegment Point="4,8"/>
+                                                            <LineSegment Point="4,6"/>
+                                                            <LineSegment Point="2,6"/>
+                                                            <LineSegment Point="2,4"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+
+                                            <!--Треугольники-->
+
+                                            <GeometryDrawing Brush="Black">
+                                                <!--<GeometryDrawing.Pen>
+                                                    <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="Black" Thickness="0.5"></Pen>
+                                                </GeometryDrawing.Pen>-->
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <!--Левый треугольник-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="0,5">
+                                                                <LineSegment Point="2,2"/>
+                                                                <LineSegment Point="2,8"/>
+                                                                <LineSegment Point="0,5"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                        <!--Правый треугольник-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="10,5">
+                                                                <LineSegment Point="8,2"/>
+                                                                <LineSegment Point="8,8"/>
+                                                                <LineSegment Point="10,5"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                        <!--Верхний треугольник-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="5,0">
+                                                                <LineSegment Point="2,2"/>
+                                                                <LineSegment Point="8,2"/>
+                                                                <LineSegment Point="5,0"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                        <!--Нижний треугольник-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="5,10">
+                                                                <LineSegment Point="8,8"/>
+                                                                <LineSegment Point="2,8"/>
+                                                                <LineSegment Point="5,10"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                    </GeometryGroup>
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="PenButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="Black">
+                                            <!--<GeometryDrawing.Pen>
+                                                <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="Indigo" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>-->
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="4,1" IsClosed="True">
+                                                            <LineSegment Point="5,2"/>
+                                                            <LineSegment Point="2,5"/>
+                                                            <LineSegment Point="1,4"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="1,4" IsClosed="True" >
+                                                            <LineSegment Point="1,5"/>
+                                                            <LineSegment Point="2,5"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="0.9,4.1" IsClosed="True" >
+                                                            <LineSegment Point="0.9,5.1"/>
+                                                            <LineSegment Point="1.9,5.1"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="4.4,1.4" IsClosed="True" >
+                                                            <LineSegment Point="4.6,1.6"/>
+                                                            <LineSegment Point="1.6,4.6"/>
+                                                            <LineSegment Point="1.4,4.4"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+                                                </GeometryGroup>
+
+
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="LineButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="Black">
+                                            <GeometryDrawing.Pen>
+                                                <Pen  Brush="Black" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <EllipseGeometry Center="8,8" RadiusX="1" RadiusY="1"/>
+
+                                                    <LineGeometry StartPoint="8,8" EndPoint="1,1" />
+
+                                                    <EllipseGeometry Center="1,1" RadiusX="1" RadiusY="1"/>
+
+
+
+                                                </GeometryGroup>
+
+
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="PoliLineButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="Black">
+                                            <GeometryDrawing.Pen>
+                                                <Pen  Brush="Black" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <GeometryGroup.Transform>
+                                                        <RotateTransform Angle="180"></RotateTransform>
+                                                    </GeometryGroup.Transform>
+                                                    <EllipseGeometry Center="8,8" RadiusX="1" RadiusY="1"/>
+
+                                                    <LineGeometry StartPoint="8,8" EndPoint="1,1" />
+
+                                                    <EllipseGeometry Center="1,1" RadiusX="1" RadiusY="1"/>
+
+                                                    <LineGeometry StartPoint="8,8" EndPoint="8,1" />
+
+                                                    <EllipseGeometry Center="8,1" RadiusX="1" RadiusY="1"/>
+                                                    <LineGeometry StartPoint="1,1" EndPoint="1,8" />
+                                                    <EllipseGeometry Center="1,8" RadiusX="1" RadiusY="1"></EllipseGeometry>
+
+                                                </GeometryGroup>
+
+
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="CricleButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+                                            <GeometryDrawing >
+                                                <GeometryDrawing.Pen>
+                                                    <Pen  Brush="Black" Thickness="1"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+
+
+                                                        <EllipseGeometry Center="0,0" RadiusX="8" RadiusY="8"/>
+
+                                                        <LineGeometry StartPoint="0,0" EndPoint="6,6"></LineGeometry>
+
+
+
+                                                    </GeometryGroup>
+
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="Black">
+                                                <!--<GeometryDrawing.Pen>
+                                                    <Pen  Brush="Black" Thickness="1"></Pen>
+                                                </GeometryDrawing.Pen>-->
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+
+
+                                                        <EllipseGeometry Center="0,0" RadiusX="2" RadiusY="2"/>
+
+
+
+
+
+                                                    </GeometryGroup>
+
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="RectangleButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing >
+                                            <GeometryDrawing.Pen>
+                                                <Pen  Brush="Black" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+
+
+                                                    <PathGeometry>
+                                                        <PathFigure IsFilled="False" IsClosed="True">
+                                                            <LineSegment Point="10,0"></LineSegment>
+                                                            <LineSegment Point="10,10"></LineSegment>
+                                                            <LineSegment Point="0,10"></LineSegment>
+
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+
+
+
+
+                                                </GeometryGroup>
+
+
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="TextButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+
+                                            <!--T-->
+                                            <GeometryDrawing Brush="Black">
+                                                <!--<GeometryDrawing.Pen>
+                                                    <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="Black" Thickness="0.2"></Pen>
+                                                </GeometryDrawing.Pen>-->
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry>
+                                                        <PathFigure >
+                                                            <LineSegment Point="6,0"/>
+                                                            <LineSegment Point="6,2"/>
+                                                            <LineSegment Point="5,1"/>
+                                                            <LineSegment Point="4,1"/>
+                                                            <LineSegment Point="4,5"/>
+                                                            <LineSegment Point="2,5"/>
+                                                            <LineSegment Point="2,1"/>
+                                                            <LineSegment Point="1,1"/>
+                                                            <LineSegment Point="0,2"/>
+                                                            <LineSegment Point="0,0"/>
+
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+
+
+
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="PathEvacuacionButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+
+                                            <!--Линии-->
+                                            <GeometryDrawing >
+                                                <GeometryDrawing.Pen>
+                                                    <Pen  Brush="Green" Thickness="0.3"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <GeometryGroup.Transform>
+                                                            <RotateTransform Angle="90"></RotateTransform>
+                                                        </GeometryGroup.Transform>
+                                                        <!--1-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="1,0">
+                                                                <LineSegment Point="1,2"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+                                                        <!--2-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="3,4">
+                                                                <LineSegment Point="5,4"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                    </GeometryGroup>
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <!--Bezier-->
+                                            <GeometryDrawing >
+                                                <GeometryDrawing.Pen>
+                                                    <Pen DashStyle="{x:Static DashStyles.Dash}"  Brush="Green" Thickness="0.3"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <GeometryGroup.Transform>
+                                                            <RotateTransform Angle="90"></RotateTransform>
+                                                        </GeometryGroup.Transform>
+                                                        <!--1-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="1,2">
+                                                                <BezierSegment Point1="1,2" Point2="1,4" Point3="3,4"></BezierSegment>
+
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                    </GeometryGroup>
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+
+                                            <!--Треугольники-->
+                                            <GeometryDrawing  Brush="Green">
+
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <GeometryGroup.Transform>
+                                                            <RotateTransform Angle="90"></RotateTransform>
+                                                        </GeometryGroup.Transform>
+                                                        <!--1-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="1,2.5">
+                                                                <LineSegment Point="1.5,1.5"></LineSegment>
+                                                                <LineSegment Point="0.5,1.5"></LineSegment>
+                                                                <LineSegment Point="1,2.5"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+                                                        <!--2-->
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="5.5,4">
+                                                                <LineSegment Point="4.5,3.5"></LineSegment>
+                                                                <LineSegment Point="4.5,4.5"></LineSegment>
+                                                                <LineSegment Point="5.5,4"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+                                                    </GeometryGroup>
+
+
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="DoorButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+
+                                            <!--рамка-->
+                                            <GeometryDrawing  Brush="Transparent">
+
+                                                <GeometryDrawing.Geometry>
+
+                                                    <GeometryGroup>
+                                                        <PathGeometry>
+                                                            <PathFigure IsClosed="True">
+                                                                <LineSegment Point="16,0"></LineSegment>
+                                                                <LineSegment Point="16,16"></LineSegment>
+                                                                <LineSegment Point="0,16"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                    </GeometryGroup>
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+
+                                            <!--Дверь-->
+                                            <GeometryDrawing Brush="BurlyWood">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="Black" Thickness="0.3"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+
+                                                    <GeometryGroup>
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="2,0" IsClosed="True">
+                                                                <LineSegment Point="14,0"></LineSegment>
+                                                                <LineSegment Point="14,16"></LineSegment>
+                                                                <LineSegment Point="2,16"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="4,6">
+                                                                <LineSegment Point="4,10"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                    </GeometryGroup>
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+
+
+
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="BackButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="Blue">
+                                            <!--<GeometryDrawing.Pen>
+                                                <Pen  Brush="Black" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>-->
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+
+                                                    <GeometryGroup.Transform>
+                                                        <RotateTransform Angle="0"></RotateTransform>
+                                                    </GeometryGroup.Transform>
+                                                    <PathGeometry >
+
+                                                        <PathFigure  IsClosed="True" StartPoint="0,3">
+                                                            <LineSegment Point="4,0"></LineSegment>
+                                                            <LineSegment Point="4,6"></LineSegment>
+                                                        </PathFigure>
+                                                        <PathFigure  IsClosed="True" StartPoint="4,2">
+                                                            <LineSegment Point="4,4"></LineSegment>
+                                                            <LineSegment Point="8,4"></LineSegment>
+                                                            <LineSegment Point="8,2"></LineSegment>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+
+
+
+
+                                                </GeometryGroup>
+
+
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="CancelBackButtonIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="Blue">
+                                            <!--<GeometryDrawing.Pen>
+                                                <Pen  Brush="Black" Thickness="1"></Pen>
+                                            </GeometryDrawing.Pen>-->
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+
+                                                    <GeometryGroup.Transform>
+                                                        <RotateTransform Angle="180"></RotateTransform>
+                                                    </GeometryGroup.Transform>
+                                                    <PathGeometry >
+
+                                                        <PathFigure  IsClosed="True" StartPoint="0,3">
+                                                            <LineSegment Point="4,0"></LineSegment>
+                                                            <LineSegment Point="4,6"></LineSegment>
+                                                        </PathFigure>
+                                                        <PathFigure  IsClosed="True" StartPoint="4,2">
+                                                            <LineSegment Point="4,4"></LineSegment>
+                                                            <LineSegment Point="8,4"></LineSegment>
+                                                            <LineSegment Point="8,2"></LineSegment>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+
+
+
+
+
+                                                </GeometryGroup>
+
+
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+        
+        <Image x:Key="PointerEvacTool">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <!--Pointer-->
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="Green">
+                                            <GeometryDrawing.Geometry>
+                                                <PathGeometry>
+                                                    <PathFigure StartPoint="2,0">
+                                                        <LineSegment Point="0,5"></LineSegment>
+                                                        <LineSegment Point="2,4"></LineSegment>
+                                                        <LineSegment Point="4,5"></LineSegment>
+                                                    </PathFigure>
+                                                </PathGeometry>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+
+        <Image x:Key="ExitManIcon">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <ImageDrawing>
+                            <ImageDrawing.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+
+                                            <!--Пунктирный прямоугольник-->
+                                            <GeometryDrawing Brush="Green">
+                                                <GeometryDrawing.Pen>
+                                                    <Pen DashStyle="{x:Static DashStyles.Dash}" Brush="White" Thickness="0.1"></Pen>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry>
+                                                        <PathFigure StartPoint="0,0">
+                                                            <LineSegment Point="9,0"/>
+                                                            <LineSegment Point="9,9"/>
+                                                            <LineSegment Point="0,9"/>
+                                                            <LineSegment Point="0,0"/>
+                                                        </PathFigure>
+                                                    </PathGeometry>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <!--Голова-->
+                                            <GeometryDrawing Brush="White">
+
+                                                <GeometryDrawing.Geometry>
+                                                    <EllipseGeometry Center="4,2" RadiusX="1" RadiusY="1">
+                                                    </EllipseGeometry>
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <!--Тело-->
+                                            <GeometryDrawing >
+                                                <GeometryDrawing.Pen>
+                                                    <Pen Brush="White" Thickness="0.7"/>
+                                                </GeometryDrawing.Pen>
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <PathGeometry >
+                                                            <PathFigure StartPoint="4,2">
+                                                                <LineSegment Point="2.9,5.6"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                        <!--ЛеваяРука-->
+                                                        <PathGeometry >
+                                                            <PathFigure StartPoint="3.8,3.3">
+                                                                <LineSegment Point="4.3,3.3"></LineSegment>
+                                                                <LineSegment Point="5.3,3.9"></LineSegment>
+                                                                <LineSegment Point="6.0,3.2"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+                                                        <!--ПраваяРука-->
+                                                        <PathGeometry >
+                                                            <PathFigure StartPoint="3.9,3.2">
+                                                                <LineSegment Point="2.5,3.2"></LineSegment>
+                                                                <LineSegment Point="2,4"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+                                                        <!--ПраваяНога-->
+                                                        <PathGeometry >
+                                                            <PathFigure StartPoint="2.9,5.5">
+                                                                <LineSegment Point="2.7,7"></LineSegment>
+                                                                <LineSegment Point="1.9,7.5"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+                                                        <!--ЛеваяНога-->
+                                                        <PathGeometry >
+                                                            <PathFigure StartPoint="2.9,5.6">
+                                                                <LineSegment Point="4.1,7"></LineSegment>
+                                                                <LineSegment Point="4.1,7.8"></LineSegment>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+
+
+
+                                                    </GeometryGroup>
+
+
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageDrawing.ImageSource>
+                            <ImageDrawing.Rect>
+                                <Rect Size="24,24"></Rect>
+                            </ImageDrawing.Rect>
+                        </ImageDrawing>
+
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+        
+    </Application.Resources>
+</Application>
